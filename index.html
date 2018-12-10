@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TodoList</title>
+    <!-- 載入bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <!-- 載入font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style/style.css">
+
+</head>
+
+<body>
+
+    <!-- 載入JQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- 載入FireBase核心 -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <!-- 載入資料庫 -->
+    <script src="db.js"></script>
+
+    <!-- NavBar -->
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">TodoList</a>
+            <div class="navbar-nav">
+                <div class="nav-item d-flex">
+                    <a class="nav-link btn btn-outline-secondary btn-sm px-2 mr-3" data-toggle="modal" data-title="new" data-target="#EditModal"><i
+                            class="fas fa-plus px-2"></i></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 放置TodoList的地方 -->
+    <div class="container-fluid py-5">
+        <div class="row list-body">
+
+        </div>
+    </div>
+    <!--Edit Modal -->
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="EditModalLabel">新增代辦事項</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">內容</label>
+                            <textarea class="form-control Todo-Content" id="Todo-Content" aria-label="With textarea"></textarea>
+                        </div>
+                        <div>設定期限
+                            <button type="button" class="btn btn-toggle active" id="AlertSwitch" data-toggle="button" aria-pressed="true"
+                                autocomplete="off">
+                                <div class="handle"></div>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label for="timer">時間設定</label>
+                            <input type="datetime-local" class="form-control" id="timer">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary add-card" id="add-card" data-dismiss="modal">Save
+                        changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap載入 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+
+    <!-- 載入我的js -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
