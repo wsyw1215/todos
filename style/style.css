@@ -518,4 +518,9 @@ body {
   -webkit-box-shadow: 0px 0px 15px 3px #28a7468a;
           box-shadow: 0px 0px 15px 3px #28a7468a;
 }
+
+.shadow-danger {
+  -webkit-box-shadow: 0px 0px 15px 3px #c22d2d8a;
+          box-shadow: 0px 0px 15px 3px #c22d2d8a;
+}
 /*# sourceMappingURL=style.css.map */

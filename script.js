@@ -22,6 +22,7 @@ $(document).ready(function () {
         //console.log(Time.val()+";"+AlertSwitch.attr("aria-pressed"));
         let data = {
             Content: content.val(),
+            Status:"normal"
         };
         if (AlertSwitch.attr("aria-pressed") == "true") { //如果有要求設定鬧鐘
             data.Alert = true;
@@ -97,29 +98,41 @@ $(document).ready(function () {
         let btn = $(this);
         let btnState = btn.attr("data-pressed");
         let card = $(this).parents('.card');
+        //取得目前操作的元件key值
+        let card_key=$(this).parents('.col-md-4').data("key");
+        let obj=database.ref('todos/'+card_key+"/Status");
+        
         //console.log(card);
         if (btnState == "false") {
             btn.attr("data-pressed", true);
             $(this).addClass("text-success");
             card.addClass("shadow-success"); //新增淡綠色shadow
+            obj.set("done");
         }
         else {
             btn.attr("data-pressed", false);
             $(this).removeClass("text-success");
             card.removeClass("shadow-success");
+            obj.set("nomal");
         }
 
     });
 
 });
 //用來新建一個Card
-function CreateNewToDoList(content, key, clock, time) {
+function CreateNewToDoList(content, key, clock, time,status) {
     let Outline = $("<div></div>");
     let NewCard = $("<div></div>").addClass("col-md-4").addClass("py-3").attr("data-key", key);
     //NewCard.data("key",key);
     //console.log(NewCard.data("key"));
     NewCard.append($("<div></div>").addClass("card").addClass("h-100"));
     let Card = NewCard.children();
+    if(status=="done"){
+        Card.addClass("shadow-success");
+    }
+    else if(status=="delay"){
+        Card.addClass("shadow-danger");
+    }
     Card.append($("<div></div>").addClass("card-header").addClass("d-flex"));
     Card.append($("<div></div>").addClass("card-body"));
     let CardHeader = Card.children(".card-header"); //CardTittle
@@ -128,6 +141,7 @@ function CreateNewToDoList(content, key, clock, time) {
     //帶入使用者輸入的標題
 
     CardHeader.append($("<div></div>").addClass("todo-title"));
+    //如果有設定期限就新增鬧鐘圖示上去
     if (clock) {
         CardHeader.children('.todo-title').append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-clock").text(time));
         CardHeader.find(".btn-clock").prepend($("<i></i>").addClass("far").addClass("fa-clock").addClass("mr-2"));
@@ -136,9 +150,13 @@ function CreateNewToDoList(content, key, clock, time) {
     //創建TodoList操作button
     CardHeader.append($("<div></div>").addClass("ml-auto"));
     let btns = CardHeader.children(".ml-auto");
-    //如果有設定期限就新增鬧鐘圖示上去
-
-    btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish").attr("date-pressed", false));
+    
+    if(status=="done"){
+        btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish").addClass("text-success").attr("date-pressed", true));
+    }
+    else{
+        btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish").attr("date-pressed", false));
+    }
     btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-edit"));
     btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-delete"));
 
@@ -153,6 +171,7 @@ function CreateNewToDoList(content, key, clock, time) {
     //console.log(Outline.html());
     return Outline.html();
 }
+//設定input 最小時間
 function SetMinDate() {
     var today = new Date();
     var dd = today.getDate();

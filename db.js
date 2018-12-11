@@ -14,8 +14,15 @@ var todos=database.ref('todos');
 todos.on('value',function(snapshot){
   var data=snapshot.val();
   let dataHtml="";
-  for(var items in data){
-      dataHtml+=CreateNewToDoList(data[items].Content,items,data[items].Alert,data[items].Dateline);
+  var datas=[];
+  for (var i in data) {
+    data[i].key=i;
+    datas.push(data[i]);
+  }
+  datas.reverse();
+  //console.log(datas);
+  for(var items in datas){
+      dataHtml+=CreateNewToDoList(datas[items].Content,datas[items].key,datas[items].Alert,datas[items].Dateline,datas[items].Status);
       //console.log(dataHtml);            
   }
   $(".list-body").html(dataHtml);
