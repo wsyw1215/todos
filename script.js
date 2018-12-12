@@ -101,21 +101,24 @@ $(document).ready(function () {
         //取得目前操作的元件key值
         let card_key=$(this).parents('.col-md-4').data("key");
         let obj=database.ref('todos/'+card_key+"/Status");
-        
+        console.log(btn.data('pressed'));
         //console.log(card);
         if (btnState == "false") {
-            btn.attr("data-pressed", true);
+            btn.data("pressed", true);
+            // console.log("false:"+btn.attr("data-pressed"));
             $(this).addClass("text-success");
-            card.addClass("shadow-success"); //新增淡綠色shadow
+            card.addClass("shadow-success");
             obj.set("done");
         }
         else {
-            btn.attr("data-pressed", false);
+            btn.data("pressed", false);
+            // console.log("true:"+btn.attr("data-pressed"));
             $(this).removeClass("text-success");
             card.removeClass("shadow-success");
             obj.set("nomal");
         }
-
+        // $(this).toggleClass("text-success");
+        // card.toggleClass("shadow-success"); //新增淡綠色shadow
     });
 
 });
@@ -150,12 +153,12 @@ function CreateNewToDoList(content, key, clock, time,status) {
     //創建TodoList操作button
     CardHeader.append($("<div></div>").addClass("ml-auto"));
     let btns = CardHeader.children(".ml-auto");
-    
+    //btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish"));
     if(status=="done"){
-        btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish").addClass("text-success").attr("date-pressed", true));
+        btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish").addClass("text-success").attr("data-pressed", true));
     }
     else{
-        btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish").attr("date-pressed", false));
+        btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-finish").attr("data-pressed", false));
     }
     btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-edit"));
     btns.append($("<a></a>").addClass("btn").addClass("btn-sm").addClass("pr-0").addClass("btn-delete"));
