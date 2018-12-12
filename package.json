@@ -1,11 +1,24 @@
 {
   "name": "todolist",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "yining",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wsyw1215/todos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wsyw1215/todos/issues"
+  },
+  "homepage": "https://github.com/wsyw1215/todos#readme",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.16.4"
+  }
 }
